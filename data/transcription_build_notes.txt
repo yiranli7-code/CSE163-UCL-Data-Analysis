@@ -1,0 +1,99 @@
+"""Transcribe source-checked 2023/24 OpenFootball fixture lines into CSV.
+
+Source: https://raw.githubusercontent.com/openfootball/champions-league/master/2023-24/cl.txt
+Verified 2026-11-12. Intermediate script retained for source audit.
+"""
+from pathlib import Path
+import pandas as pd
+
+ROOT = Path(__file__).parent
+TEAMS = dict(
+    MIL='AC Milan (ITA)', NEW='Newcastle United FC (ENG)',
+    YB='BSC Young Boys (SUI)', LEI='RB Leipzig (GER)',
+    LAZ='SS Lazio (ITA)', ATM='Club Atlético de Madrid (ESP)',
+    FEY='Feyenoord Rotterdam (NED)', CEL='Celtic FC (SCO)',
+    PSG='Paris Saint-Germain FC (FRA)', DOR='Borussia Dortmund (GER)',
+    MCI='Manchester City FC (ENG)', RED='FK Crvena Zvezda (SRB)',
+    BAR='FC Barcelona (ESP)', ANT='Royal Antwerp FC (BEL)',
+    SHA='FK Shakhtar Donetsk (UKR)', POR='FC Porto (POR)',
+    RM='Real Madrid CF (ESP)', UNI='1. FC Union Berlin (GER)',
+    GAL='Galatasaray SK (TUR)', CPH='FC København (DEN)',
+    SEV='Sevilla FC (ESP)', LEN='Racing Club de Lens (FRA)',
+    BRA='Sporting Clube de Braga (POR)', NAP='SSC Napoli (ITA)',
+    SOC='Real Sociedad de Fútbol (ESP)', INT='FC Internazionale Milano (ITA)',
+    BEN='Sport Lisboa e Benfica (POR)', SAL='FC Red Bull Salzburg (AUT)',
+    BAY='FC Bayern München (GER)', MUN='Manchester United FC (ENG)',
+    ARS='Arsenal FC (ENG)', PSV='PSV (NED)')
+
+# Each row: YYYY-MM-DD; phase; HOME AWAY GOALS_HOME GOALS_AWAY.
+# Knockout goals include extra-time but exclude shootouts. See source note.
+RAW = '''
+2023-09-19|Group|MIL NEW 0 0;YB LEI 1 3;LAZ ATM 1 1;FEY CEL 2 0;PSG DOR 2 0;MCI RED 3 1;BAR ANT 5 0;SHA POR 1 3
+2023-09-20|Group|RM UNI 1 0;GAL CPH 2 2;SEV LEN 1 1;BRA NAP 1 2;SOC INT 1 1;BEN SAL 0 2;BAY MUN 4 3;ARS PSV 4 0
+2023-10-03|Group|UNI BRA 2 3;SAL SOC 0 2;NAP RM 2 3;INT BEN 1 0;CPH BAY 1 2;MUN GAL 2 3;LEN ARS 2 1;PSV SEV 2 2
+2023-10-04|Group|ATM FEY 3 2;ANT SHA 2 3;CEL LAZ 1 2;DOR MIL 0 0;NEW PSG 4 1;RED YB 2 2;LEI MCI 1 3;POR BAR 0 1
+2023-10-24|Group|INT SAL 2 1;GAL BAY 1 3;UNI NAP 0 1;BRA RM 1 2;BEN SOC 0 1;MUN CPH 1 0;SEV ARS 1 2;LEN PSV 1 1
+2023-10-25|Group|FEY LAZ 3 1;BAR SHA 2 1;CEL ATM 2 2;PSG MIL 3 0;NEW DOR 0 1;YB MCI 1 3;LEI RED 3 1;ANT POR 1 4
+2023-11-07|Group|DOR NEW 2 0;SHA BAR 1 0;ATM CEL 6 0;LAZ FEY 1 0;MIL PSG 2 1;MCI YB 3 0;RED LEI 1 2;POR ANT 2 0
+2023-11-08|Group|NAP UNI 1 1;SOC BEN 3 1;RM BRA 3 0;SAL INT 0 1;BAY GAL 2 1;CPH MUN 4 3;ARS SEV 2 0;PSV LEN 1 0
+2023-11-28|Group|LAZ CEL 2 0;SHA ANT 1 0;FEY ATM 1 3;MIL DOR 1 3;PSG NEW 1 1;YB RED 2 0;MCI LEI 3 2;BAR POR 2 1
+2023-11-29|Group|GAL MUN 3 3;SEV PSV 2 3;BRA UNI 1 1;RM NAP 4 2;BEN INT 3 3;SOC SAL 0 0;BAY CPH 0 0;ARS LEN 6 0
+2023-12-12|Group|PSV ARS 1 1;LEN SEV 2 1;UNI RM 2 3;NAP BRA 2 0;INT SOC 0 0;SAL BEN 1 3;MUN BAY 0 1;CPH GAL 1 0
+2023-12-13|Group|LEI YB 2 1;RED MCI 2 3;ATM LAZ 2 0;CEL FEY 2 1;NEW MIL 1 2;DOR PSG 1 1;ANT BAR 3 2;POR SHA 5 3
+2024-02-13|Knockout|CPH MCI 1 3;LEI RM 0 1
+2024-02-14|Knockout|PSG SOC 2 0;LAZ BAY 1 0
+2024-02-20|Knockout|INT ATM 1 0;PSV DOR 1 1
+2024-02-21|Knockout|POR ARS 1 0;NAP BAR 1 1
+2024-03-05|Knockout|SOC PSG 1 2;BAY LAZ 3 0
+2024-03-06|Knockout|MCI CPH 3 1;RM LEI 1 1
+2024-03-12|Knockout|ARS POR 1 0;BAR NAP 3 1
+2024-03-13|Knockout|ATM INT 2 1;DOR PSV 2 0
+2024-04-09|Knockout|ARS BAY 2 2;RM MCI 3 3
+2024-04-10|Knockout|ATM DOR 2 1;PSG BAR 2 3
+2024-04-16|Knockout|DOR ATM 4 2;BAR PSG 1 4
+2024-04-17|Knockout|BAY ARS 1 0;MCI RM 1 1
+2024-04-30|Knockout|BAY RM 2 2
+2024-05-01|Knockout|DOR PSG 1 0
+2024-05-07|Knockout|PSG DOR 0 1
+2024-05-08|Knockout|RM BAY 2 1
+2024-06-01|Knockout|DOR RM 0 2
+'''
+
+matches = []
+for line in RAW.strip().splitlines():
+    date, stage, entries = line.split('|')
+    for entry in entries.split(';'):
+        home, away, hg, ag = entry.split()
+        matches.append(dict(season='2023-24', date=date, stage=stage,
+                            home_team=TEAMS[home], away_team=TEAMS[away],
+                            home_goals=int(hg), away_goals=int(ag),
+                            source='OpenFootball cl.txt (verified transcription)'))
+df = pd.DataFrame(matches)
+assert len(df) == 125, len(df)
+assert df['stage'].value_counts().to_dict() == {'Group': 96, 'Knockout': 29}
+assert len(set(df.home_team) | set(df.away_team)) == 32
+assert not df.duplicated(['date', 'home_team', 'away_team']).any()
+df.to_csv(ROOT / 'data/matches_2023_24.csv', index=False)
+
+players = pd.DataFrame([
+    ['Cristiano Ronaldo', 141, 42, 187],
+    ['Lionel Messi', 129, 40, 163],
+    ['Robert Lewandowski', 109, 22, None],
+    ['Karim Benzema', 90, 29, 152],
+    ['Kylian Mbappé', 74, 26, None],
+], columns=['player', 'goals', 'assists', 'appearances'])
+players.to_csv(ROOT / 'data/players_uefa_2026_11_12.csv', index=False)
+
+peaks = pd.DataFrame([
+    ['Cristiano Ronaldo', '2007-08', 8, 'UEFA top-scorer retrospective'],
+    ['Cristiano Ronaldo', '2013-14', 17, 'UEFA 2013/14 historical report'],
+    ['Cristiano Ronaldo', '2015-16', 16, 'UEFA 2015/16 historical report'],
+    ['Cristiano Ronaldo', '2016-17', 12, 'UEFA 2016/17 historical report'],
+    ['Lionel Messi', '2011-12', 14, 'UEFA historical rankings'],
+    ['Karim Benzema', '2021-22', 15, 'UEFA historical rankings'],
+    ['Robert Lewandowski', '2019-20', 15, 'UEFA historical rankings'],
+    ['Kylian Mbappé', '2023-24', 8, 'UEFA historical rankings'],
+    ['Kylian Mbappé', '2025-26', 15, 'UEFA historical rankings'],
+], columns=['player', 'season', 'goals', 'source_note'])
+peaks.to_csv(ROOT / 'data/verified_peak_seasons.csv', index=False)
+print('Finished', df.shape, players.shape, peaks.shape)

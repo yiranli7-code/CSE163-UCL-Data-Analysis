@@ -1,0 +1,660 @@
+{
+  "snapshot_date": "2026-11-12",
+  "match_range": "2011-12 to 2023-24",
+  "players": {
+    "rows": 5,
+    "columns": 7,
+    "missing_by_column": {
+      "player": 0,
+      "goals": 0,
+      "assists": 0,
+      "appearances": 2,
+      "goal_contributions": 0,
+      "goals_per_appearance": 2,
+      "contributions_per_appearance": 2
+    },
+    "quantitative": {
+      "goals": {
+        "mean": 108.6,
+        "std": 27.428087793355193,
+        "min": 74.0,
+        "q1": 90.0,
+        "median": 109.0,
+        "q3": 129.0,
+        "max": 141.0
+      },
+      "assists": {
+        "mean": 31.8,
+        "std": 8.78635305459552,
+        "min": 22.0,
+        "q1": 26.0,
+        "median": 29.0,
+        "q3": 40.0,
+        "max": 42.0
+      },
+      "appearances": {
+        "mean": 167.33333333333334,
+        "std": 17.8978583448784,
+        "min": 152.0,
+        "q1": 157.5,
+        "median": 163.0,
+        "q3": 175.0,
+        "max": 187.0
+      },
+      "goal_contributions": {
+        "mean": 140.4,
+        "std": 34.68140712254911,
+        "min": 100.0,
+        "q1": 119.0,
+        "median": 131.0,
+        "q3": 169.0,
+        "max": 183.0
+      },
+      "goals_per_appearance": {
+        "mean": 0.7125090004299487,
+        "std": 0.1059362613315481,
+        "min": 0.5921052631578947,
+        "q1": 0.6730579791725302,
+        "median": 0.7540106951871658,
+        "q3": 0.7727108690659755,
+        "max": 0.7914110429447853
+      },
+      "contributions_per_appearance": {
+        "mean": 0.9327713928204916,
+        "std": 0.13301907586010595,
+        "min": 0.7828947368421053,
+        "q1": 0.8807521812552772,
+        "median": 0.9786096256684492,
+        "q3": 1.0077097208096848,
+        "max": 1.0368098159509203
+      }
+    },
+    "categorical": {
+      "player": {
+        "Cristiano Ronaldo": 1,
+        "Lionel Messi": 1,
+        "Robert Lewandowski": 1,
+        "Karim Benzema": 1,
+        "Kylian Mbappé": 1
+      }
+    }
+  },
+  "peak_seasons": {
+    "rows": 9,
+    "columns": 4,
+    "missing_by_column": {
+      "player": 0,
+      "season": 0,
+      "goals": 0,
+      "source_note": 0
+    },
+    "quantitative": {
+      "goals": {
+        "mean": 13.333333333333334,
+        "std": 3.3166247903553994,
+        "min": 8.0,
+        "q1": 12.0,
+        "median": 15.0,
+        "q3": 15.0,
+        "max": 17.0
+      }
+    },
+    "categorical": {
+      "player": {
+        "Cristiano Ronaldo": 4,
+        "Kylian Mbappé": 2,
+        "Lionel Messi": 1,
+        "Karim Benzema": 1,
+        "Robert Lewandowski": 1
+      },
+      "season": {
+        "2007-08": 1,
+        "2013-14": 1,
+        "2015-16": 1,
+        "2016-17": 1,
+        "2011-12": 1,
+        "2021-22": 1,
+        "2019-20": 1,
+        "2023-24": 1,
+        "2025-26": 1
+      }
+    }
+  },
+  "matches": {
+    "rows": 1619,
+    "columns": 10,
+    "missing_by_column": {
+      "season": 0,
+      "date": 0,
+      "stage": 0,
+      "home_team": 0,
+      "away_team": 0,
+      "home_goals": 0,
+      "away_goals": 0,
+      "source": 0,
+      "total_goals": 0,
+      "high_scoring": 0
+    },
+    "quantitative": {
+      "home_goals": {
+        "mean": 1.6726374305126621,
+        "std": 1.4445879216559079,
+        "min": 0.0,
+        "q1": 1.0,
+        "median": 1.0,
+        "q3": 2.0,
+        "max": 8.0
+      },
+      "away_goals": {
+        "mean": 1.2977146386658431,
+        "std": 1.294779272597648,
+        "min": 0.0,
+        "q1": 0.0,
+        "median": 1.0,
+        "q3": 2.0,
+        "max": 8.0
+      },
+      "total_goals": {
+        "mean": 2.9703520691785052,
+        "std": 1.728581965498478,
+        "min": 0.0,
+        "q1": 2.0,
+        "median": 3.0,
+        "q3": 4.0,
+        "max": 12.0
+      },
+      "high_scoring": {
+        "mean": 0.5657813465101915,
+        "std": 0.49580707113783157,
+        "min": 0.0,
+        "q1": 0.0,
+        "median": 1.0,
+        "q3": 1.0,
+        "max": 1.0
+      }
+    },
+    "categorical": {
+      "stage": {
+        "Group": 1248,
+        "Knockout": 371
+      },
+      "season": {
+        "2011-12": 125,
+        "2012-13": 125,
+        "2013-14": 125,
+        "2014-15": 125,
+        "2015-16": 125,
+        "2016-17": 125,
+        "2017-18": 125,
+        "2018-19": 125,
+        "2020-21": 125,
+        "2022-23": 125,
+        "2021-22": 125,
+        "2023-24": 125,
+        "2019-20": 119
+      },
+      "home_team": {
+        "Real Madrid (ESP)": 71,
+        "Bayern München (GER)": 65,
+        "FC Barcelona (ESP)": 64,
+        "Manchester City (ENG)": 59,
+        "Borussia Dortmund (GER)": 54,
+        "Paris Saint-Germain (FRA)": 51,
+        "Juventus (ITA)": 51,
+        "FC Porto (POR)": 47,
+        "Chelsea FC (ENG)": 47,
+        "Atlético Madrid (ESP)": 46,
+        "SL Benfica (POR)": 42,
+        "Shakhtar Donetsk (UKR)": 36,
+        "Liverpool FC (ENG)": 35,
+        "AFC Ajax (NED)": 31,
+        "Manchester United (ENG)": 31,
+        "SSC Napoli (ITA)": 30,
+        "Arsenal FC (ENG)": 29,
+        "Zenit St. Petersburg (RUS)": 27,
+        "Olympiakos Piraeus (GRE)": 25,
+        "AC Milan (ITA)": 25,
+        "Bayer Leverkusen (GER)": 25,
+        "Sevilla FC (ESP)": 25,
+        "RB Leipzig (GER)": 24,
+        "Inter (ITA)": 23,
+        "CSKA Moskva (RUS)": 22,
+        "Tottenham Hotspur (ENG)": 22,
+        "Galatasaray (TUR)": 21,
+        "Celtic FC (SCO)": 19,
+        "Club Brugge KV (BEL)": 19,
+        "Olympique Lyonnais (FRA)": 19,
+        "Dinamo Zagreb (CRO)": 18,
+        "FC Basel 1893 (SUI)": 18,
+        "Valencia CF (ESP)": 17,
+        "AS Roma (ITA)": 17,
+        "AS Monaco (FRA)": 17,
+        "Sporting CP (POR)": 16,
+        "FC Schalke 04 (GER)": 16,
+        "Dinamo Kiev (UKR)": 16,
+        "Olympique Marseille (FRA)": 14,
+        "Lille OSC (FRA)": 13,
+        "RB Salzburg (AUT)": 13,
+        "FC København (DEN)": 13,
+        "RSC Anderlecht (BEL)": 12,
+        "Viktoria Plzeň (CZE)": 12,
+        "BATE Borisov (BLR)": 12,
+        "Atalanta (ITA)": 12,
+        "APOEL Nikosia (CYP)": 11,
+        "PSV Eindhoven (NED)": 10,
+        "Beşiktaş (TUR)": 10,
+        "Bor. Mönchengladbach (GER)": 10,
+        "Lokomotiv Moskva (RUS)": 9,
+        "BSC Young Boys (SUI)": 9,
+        "Villarreal CF (ESP)": 9,
+        "Malmö FF (SWE)": 9,
+        "VfL Wolfsburg (GER)": 8,
+        "PFC Ludogorets Razgrad (BUL)": 6,
+        "Crvena Zvezda (SRB)": 6,
+        "FC Bayern München (GER)": 6,
+        "Spartak Moskva (RUS)": 6,
+        "KRC Genk (BEL)": 6,
+        "NK Maribor (SVN)": 6,
+        "Paris Saint-Germain FC (FRA)": 6,
+        "Real Madrid CF (ESP)": 6,
+        "Málaga CF (ESP)": 5,
+        "Leicester City (ENG)": 5,
+        "Manchester City FC (ENG)": 5,
+        "Club Atlético de Madrid (ESP)": 5,
+        "SS Lazio (ITA)": 4,
+        "Lazio Roma (ITA)": 4,
+        "Eintracht Frankfurt (GER)": 4,
+        "KAA Gent (BEL)": 4,
+        "PSV (NED)": 4,
+        "Real Sociedad de Fútbol (ESP)": 4,
+        "FC Internazionale Milano (ITA)": 4,
+        "Real Sociedad (ESP)": 3,
+        "FC Nordsjælland (DEN)": 3,
+        "CFR Cluj (ROU)": 3,
+        "Sporting Braga (POR)": 3,
+        "Oţelul Galaţi (ROU)": 3,
+        "Trabzonspor (TUR)": 3,
+        "Montpellier HSC (FRA)": 3,
+        "Austria Wien (AUT)": 3,
+        "1899 Hoffenheim (GER)": 3,
+        "AEK Athen (GRE)": 3,
+        "Feyenoord (NED)": 3,
+        "FK Rostov (RUS)": 3,
+        "Legia Warszawa (POL)": 3,
+        "Maccabi Tel Aviv (ISR)": 3,
+        "FK Astana (KAZ)": 3,
+        "Athletic Club (ESP)": 3,
+        "FC Steaua Bucureşti (ROU)": 3,
+        "Qarabağ FK (AZE)": 3,
+        "İstanbul Başakşehir (TUR)": 3,
+        "FC Sheriff (MDA)": 3,
+        "Slavia Praha (CZE)": 3,
+        "Stade Rennais (FRA)": 3,
+        "FC Midtjylland (DEN)": 3,
+        "Feyenoord Rotterdam (NED)": 3,
+        "Maccabi Haifa (ISR)": 3,
+        "Rangers FC (SCO)": 3,
+        "FK Shakhtar Donetsk (UKR)": 3,
+        "FK Krasnodar (RUS)": 3,
+        "Ferencvárosi TC (HUN)": 3,
+        "Galatasaray SK (TUR)": 3,
+        "Sport Lisboa e Benfica (POR)": 3,
+        "1. FC Union Berlin (GER)": 3,
+        "Sporting Clube de Braga (POR)": 3,
+        "Manchester United FC (ENG)": 3,
+        "FC Red Bull Salzburg (AUT)": 3,
+        "Racing Club de Lens (FRA)": 3,
+        "FK Crvena Zvezda (SRB)": 3,
+        "Newcastle United FC (ENG)": 3,
+        "Royal Antwerp FC (BEL)": 3
+      },
+      "away_team": {
+        "Real Madrid (ESP)": 70,
+        "Bayern München (GER)": 68,
+        "FC Barcelona (ESP)": 64,
+        "Manchester City (ENG)": 56,
+        "Borussia Dortmund (GER)": 52,
+        "Paris Saint-Germain (FRA)": 52,
+        "Chelsea FC (ENG)": 49,
+        "Atlético Madrid (ESP)": 49,
+        "Juventus (ITA)": 49,
+        "FC Porto (POR)": 47,
+        "SL Benfica (POR)": 42,
+        "Shakhtar Donetsk (UKR)": 36,
+        "Liverpool FC (ENG)": 36,
+        "AFC Ajax (NED)": 31,
+        "Manchester United (ENG)": 31,
+        "SSC Napoli (ITA)": 30,
+        "Arsenal FC (ENG)": 29,
+        "Zenit St. Petersburg (RUS)": 27,
+        "Bayer Leverkusen (GER)": 25,
+        "AC Milan (ITA)": 25,
+        "Olympiakos Piraeus (GRE)": 25,
+        "Sevilla FC (ESP)": 25,
+        "Inter (ITA)": 24,
+        "CSKA Moskva (RUS)": 22,
+        "RB Leipzig (GER)": 22,
+        "Tottenham Hotspur (ENG)": 21,
+        "Galatasaray (TUR)": 21,
+        "Celtic FC (SCO)": 19,
+        "Club Brugge KV (BEL)": 19,
+        "Olympique Lyonnais (FRA)": 19,
+        "Dinamo Zagreb (CRO)": 18,
+        "FC Basel 1893 (SUI)": 18,
+        "Valencia CF (ESP)": 17,
+        "AS Monaco (FRA)": 17,
+        "AS Roma (ITA)": 17,
+        "Sporting CP (POR)": 16,
+        "Dinamo Kiev (UKR)": 16,
+        "FC Schalke 04 (GER)": 16,
+        "Olympique Marseille (FRA)": 14,
+        "RB Salzburg (AUT)": 13,
+        "FC København (DEN)": 13,
+        "Lille OSC (FRA)": 13,
+        "RSC Anderlecht (BEL)": 12,
+        "Viktoria Plzeň (CZE)": 12,
+        "BATE Borisov (BLR)": 12,
+        "APOEL Nikosia (CYP)": 11,
+        "Atalanta (ITA)": 11,
+        "Bor. Mönchengladbach (GER)": 10,
+        "PSV Eindhoven (NED)": 10,
+        "Beşiktaş (TUR)": 10,
+        "BSC Young Boys (SUI)": 9,
+        "Lokomotiv Moskva (RUS)": 9,
+        "Malmö FF (SWE)": 9,
+        "Villarreal CF (ESP)": 9,
+        "VfL Wolfsburg (GER)": 8,
+        "Real Madrid CF (ESP)": 7,
+        "PFC Ludogorets Razgrad (BUL)": 6,
+        "Paris Saint-Germain FC (FRA)": 6,
+        "FC Bayern München (GER)": 6,
+        "Spartak Moskva (RUS)": 6,
+        "KRC Genk (BEL)": 6,
+        "NK Maribor (SVN)": 6,
+        "Crvena Zvezda (SRB)": 6,
+        "Leicester City (ENG)": 5,
+        "Málaga CF (ESP)": 5,
+        "Club Atlético de Madrid (ESP)": 5,
+        "Manchester City FC (ENG)": 5,
+        "FC Internazionale Milano (ITA)": 4,
+        "Eintracht Frankfurt (GER)": 4,
+        "Lazio Roma (ITA)": 4,
+        "KAA Gent (BEL)": 4,
+        "SS Lazio (ITA)": 4,
+        "PSV (NED)": 4,
+        "Real Sociedad de Fútbol (ESP)": 4,
+        "Trabzonspor (TUR)": 3,
+        "FC Steaua Bucureşti (ROU)": 3,
+        "Montpellier HSC (FRA)": 3,
+        "CFR Cluj (ROU)": 3,
+        "FC Nordsjælland (DEN)": 3,
+        "Sporting Braga (POR)": 3,
+        "Oţelul Galaţi (ROU)": 3,
+        "Real Sociedad (ESP)": 3,
+        "Austria Wien (AUT)": 3,
+        "Slavia Praha (CZE)": 3,
+        "Feyenoord (NED)": 3,
+        "Legia Warszawa (POL)": 3,
+        "FK Rostov (RUS)": 3,
+        "Qarabağ FK (AZE)": 3,
+        "FK Astana (KAZ)": 3,
+        "Maccabi Tel Aviv (ISR)": 3,
+        "Athletic Club (ESP)": 3,
+        "AEK Athen (GRE)": 3,
+        "1899 Hoffenheim (GER)": 3,
+        "FC Sheriff (MDA)": 3,
+        "FK Krasnodar (RUS)": 3,
+        "İstanbul Başakşehir (TUR)": 3,
+        "Ferencvárosi TC (HUN)": 3,
+        "Royal Antwerp FC (BEL)": 3,
+        "FK Crvena Zvezda (SRB)": 3,
+        "Rangers FC (SCO)": 3,
+        "Newcastle United FC (ENG)": 3,
+        "Maccabi Haifa (ISR)": 3,
+        "FC Midtjylland (DEN)": 3,
+        "Stade Rennais (FRA)": 3,
+        "1. FC Union Berlin (GER)": 3,
+        "Sport Lisboa e Benfica (POR)": 3,
+        "Sporting Clube de Braga (POR)": 3,
+        "FC Red Bull Salzburg (AUT)": 3,
+        "Racing Club de Lens (FRA)": 3,
+        "Manchester United FC (ENG)": 3,
+        "Galatasaray SK (TUR)": 3,
+        "Feyenoord Rotterdam (NED)": 3,
+        "FK Shakhtar Donetsk (UKR)": 3
+      }
+    }
+  },
+  "prematch": {
+    "rows": 1619,
+    "columns": 16,
+    "missing_by_column": {
+      "season": 0,
+      "date": 0,
+      "stage": 0,
+      "home_team": 0,
+      "away_team": 0,
+      "home_goals": 0,
+      "away_goals": 0,
+      "source": 0,
+      "total_goals": 0,
+      "high_scoring": 0,
+      "home_games_prior": 0,
+      "home_gf_prior": 208,
+      "home_ga_prior": 208,
+      "away_games_prior": 0,
+      "away_gf_prior": 208,
+      "away_ga_prior": 208
+    },
+    "quantitative": {
+      "home_gf_prior": {
+        "mean": 1.5710046450124406,
+        "std": 0.9341732170393854,
+        "min": 0.0,
+        "q1": 1.0,
+        "median": 1.5,
+        "q3": 2.041666666666667,
+        "max": 6.0
+      },
+      "home_ga_prior": {
+        "mean": 1.3905699957967852,
+        "std": 0.9467360881511633,
+        "min": 0.0,
+        "q1": 0.75,
+        "median": 1.1818181818181819,
+        "q3": 2.0,
+        "max": 7.0
+      },
+      "away_gf_prior": {
+        "mean": 1.668121889135355,
+        "std": 0.9848480192992842,
+        "min": 0.0,
+        "q1": 1.0,
+        "median": 1.5555555555555556,
+        "q3": 2.2111111111111112,
+        "max": 7.0
+      },
+      "away_ga_prior": {
+        "mean": 1.2943265805774666,
+        "std": 0.8654912137539272,
+        "min": 0.0,
+        "q1": 0.7142857142857143,
+        "median": 1.0,
+        "q3": 1.75,
+        "max": 6.0
+      }
+    },
+    "categorical": {
+      "stage": {
+        "Group": 1248,
+        "Knockout": 371
+      },
+      "season": {
+        "2011-12": 125,
+        "2012-13": 125,
+        "2013-14": 125,
+        "2014-15": 125,
+        "2015-16": 125,
+        "2016-17": 125,
+        "2017-18": 125,
+        "2018-19": 125,
+        "2020-21": 125,
+        "2022-23": 125,
+        "2021-22": 125,
+        "2023-24": 125,
+        "2019-20": 119
+      }
+    }
+  },
+  "chi_square": {
+    "valid": true,
+    "chi2": 0.8893890266152602,
+    "p": 0.3456429295917439,
+    "cramers_v": 0.02343810302979148,
+    "min_expected": 161.09512044471896,
+    "observed": {
+      "Group": {
+        "0": 534,
+        "1": 714
+      },
+      "Knockout": {
+        "0": 169,
+        "1": 202
+      }
+    },
+    "expected": [
+      [
+        541.904879555281,
+        706.095120444719
+      ],
+      [
+        161.09512044471896,
+        209.90487955528104
+      ]
+    ],
+    "warning": null
+  },
+  "bootstrap": {
+    "difference": -0.027640991084387223,
+    "ci_low": -0.08373840192826042,
+    "ci_high": 0.029624488129794718
+  },
+  "season_bootstrap": {
+    "difference": -0.027640991084387223,
+    "ci_low": -0.10842451370468613,
+    "ci_high": 0.04959796628225389,
+    "clusters": 13
+  },
+  "season_summary": {
+    "2011-12": {
+      "n": 125,
+      "goals": 345,
+      "avg_goals": 2.76,
+      "high_scoring": 61,
+      "high_rate": 0.488
+    },
+    "2012-13": {
+      "n": 125,
+      "goals": 368,
+      "avg_goals": 2.944,
+      "high_scoring": 72,
+      "high_rate": 0.576
+    },
+    "2013-14": {
+      "n": 125,
+      "goals": 362,
+      "avg_goals": 2.896,
+      "high_scoring": 71,
+      "high_rate": 0.568
+    },
+    "2014-15": {
+      "n": 125,
+      "goals": 361,
+      "avg_goals": 2.888,
+      "high_scoring": 61,
+      "high_rate": 0.488
+    },
+    "2015-16": {
+      "n": 125,
+      "goals": 347,
+      "avg_goals": 2.776,
+      "high_scoring": 66,
+      "high_rate": 0.528
+    },
+    "2016-17": {
+      "n": 125,
+      "goals": 380,
+      "avg_goals": 3.04,
+      "high_scoring": 71,
+      "high_rate": 0.568
+    },
+    "2017-18": {
+      "n": 125,
+      "goals": 401,
+      "avg_goals": 3.208,
+      "high_scoring": 87,
+      "high_rate": 0.696
+    },
+    "2018-19": {
+      "n": 125,
+      "goals": 366,
+      "avg_goals": 2.928,
+      "high_scoring": 73,
+      "high_rate": 0.584
+    },
+    "2019-20": {
+      "n": 119,
+      "goals": 386,
+      "avg_goals": 3.2436974789915967,
+      "high_scoring": 77,
+      "high_rate": 0.6470588235294118
+    },
+    "2020-21": {
+      "n": 125,
+      "goals": 366,
+      "avg_goals": 2.928,
+      "high_scoring": 71,
+      "high_rate": 0.568
+    },
+    "2021-22": {
+      "n": 125,
+      "goals": 380,
+      "avg_goals": 3.04,
+      "high_scoring": 71,
+      "high_rate": 0.568
+    },
+    "2022-23": {
+      "n": 125,
+      "goals": 372,
+      "avg_goals": 2.976,
+      "high_scoring": 64,
+      "high_rate": 0.512
+    },
+    "2023-24": {
+      "n": 125,
+      "goals": 375,
+      "avg_goals": 3.0,
+      "high_scoring": 71,
+      "high_rate": 0.568
+    }
+  },
+  "stage_summary": {
+    "Group": {
+      "n": 1248,
+      "high_scoring": 714,
+      "high_rate": 0.5721153846153846
+    },
+    "Knockout": {
+      "n": 371,
+      "high_scoring": 202,
+      "high_rate": 0.5444743935309974
+    }
+  },
+  "total_goals": 4809,
+  "form_rows_eligible": 1411,
+  "total_high_scoring": 916,
+  "source_match_counts": {
+    "Group": 1248,
+    "Knockout": 371
+  }
+}
