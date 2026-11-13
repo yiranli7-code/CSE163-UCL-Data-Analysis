@@ -64,10 +64,8 @@ def scores(fitted, data):
     predicted = fitted.predict(data[FEATURES])
     probabilities = fitted.predict_proba(data[FEATURES])[:, 1]
     result = {'accuracy': float(accuracy_score(actual, predicted)),
-              'precision': float(precision_score(actual, predicted,
-                                                  zero_division=0)),
-              'recall': float(recall_score(actual, predicted,
-                                          zero_division=0)),
+              'precision': float(precision_score(actual, predicted, zero_division=0)),
+              'recall': float(recall_score(actual, predicted, zero_division=0)),
               'f1': float(f1_score(actual, predicted, zero_division=0))}
     result['roc_auc'] = (float(roc_auc_score(actual, probabilities))
                          if actual.nunique() == 2 else None)
