@@ -81,7 +81,7 @@ def add_prematch_form(matches):
     state = {}
     records = []
     for (season, date), batch in ordered.groupby(['season', 'date'],
-                                                  sort=True):
+                                                 sort=True):
         todays_updates = []
         for _, game in batch.iterrows():
             row = game.to_dict()
@@ -144,7 +144,6 @@ def bootstrap_stage_difference(matches, iterations=3000, seed=163):
             'ci_high': float(np.quantile(estimates, 0.975))}
 
 
-
 def bootstrap_seasons(matches, iterations=3000, seed=163):
     """Bootstrap season clusters, retaining group/knockout structure.
 
@@ -172,6 +171,7 @@ def bootstrap_seasons(matches, iterations=3000, seed=163):
             'ci_low': float(np.quantile(k - g, 0.025)),
             'ci_high': float(np.quantile(k - g, 0.975)),
             'clusters': n}
+
 
 def describe_dataframe(frame, quantitative, categorical):
     """Describe shape, missingness, and variables."""
