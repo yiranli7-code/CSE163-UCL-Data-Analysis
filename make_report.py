@@ -23,8 +23,9 @@ ROOT = Path(__file__).resolve().parent
 URL = 'https://github.com/yiranli7-code/CSE163-UCL-Data-Analysis'
 FONT_DIR = Path(matplotlib.get_data_path()) / 'fonts' / 'ttf'
 pdfmetrics.registerFont(TTFont('DejaVu', str(FONT_DIR / 'DejaVuSans.ttf')))
-pdfmetrics.registerFont(TTFont('DejaVuBold', str(FONT_DIR /
-                                            'DejaVuSans-Bold.ttf')))
+pdfmetrics.registerFont(
+    TTFont('DejaVuBold', str(FONT_DIR / 'DejaVuSans-Bold.ttf'))
+)
 NAVY = colors.HexColor('#153b64')
 TEAL = colors.HexColor('#107b81')
 TEXT = colors.HexColor('#263846')
@@ -243,76 +244,76 @@ def make_report():
     # Page 3 - Historical player comparisons.
     add(para('5.1 Career Contributions and Efficiency (RQ1–RQ2)', 'h'))
     add(figure('fig1_career_contributions.png',
-        '<b>Figure 1.</b> Ronaldo leads the five-player UEFA snapshot '
-        'in listed career goals and observed goals plus assists.',
-        'The stacked bar plot separates goals and assists: Ronaldo has '
-        '141 + 42 = 183 listed contributions, compared with Messi’s '
-        '129 + 40 = 169. The comparison uses one UEFA ranking convention '
-        'but is not a claim about all competition-stage definitions.', 194))
+               '<b>Figure 1.</b> Ronaldo leads the five-player UEFA snapshot '
+               'in listed career goals and observed goals plus assists.',
+               'The stacked bar plot separates goals and assists: Ronaldo has '
+               '141 + 42 = 183 listed contributions, compared with Messi’s '
+               '129 + 40 = 169. The comparison uses one UEFA ranking convention '
+               'but is not a claim about all competition-stage definitions.', 194))
     add(figure('fig2_rates_verified.png',
-        '<b>Figure 2.</b> Messi has the highest goals per UEFA-listed '
-        'appearance among the three players with observed denominators.',
-        'The grouped bars show goals/appearance and G+A/appearance. '
-        'Messi has 129/163 ≈ 0.79 goals per appearance, versus '
-        'Ronaldo 141/187 ≈ 0.75 and Benzema 90/152 ≈ 0.59. '
-        'Missing denominators for Lewandowski and Mbappé are not zero-filled.',
-        194))
+               '<b>Figure 2.</b> Messi has the highest goals per UEFA-listed '
+               'appearance among the three players with observed denominators.',
+               'The grouped bars show goals/appearance and G+A/appearance. '
+               'Messi has 129/163 ≈ 0.79 goals per appearance, versus '
+               'Ronaldo 141/187 ≈ 0.75 and Benzema 90/152 ≈ 0.59. '
+               'Missing denominators for Lewandowski and Mbappé are not zero-filled.',
+               194))
     page()
 
     # Page 4 - Selected seasons.
     add(para('5.2 Selected Seasonal Peaks (RQ3)', 'h'))
     add(figure('fig3_selected_seasons.png',
-        '<b>Figure 3.</b> Ronaldo’s 2013/14 total of 17 goals '
-        'is the largest among the nine selected player-seasons.',
-        'A horizontal bar plot allows direct comparison of the source '
-        'season-goal totals, including Ronaldo 2015/16 (16) and '
-        'Benzema 2021/22 (15). The entries were deliberately selected, '
-        'so this is not a distribution of all UCL player-seasons.', 201))
+               '<b>Figure 3.</b> Ronaldo’s 2013/14 total of 17 goals '
+               'is the largest among the nine selected player-seasons.',
+               'A horizontal bar plot allows direct comparison of the source '
+               'season-goal totals, including Ronaldo 2015/16 (16) and '
+               'Benzema 2021/22 (15). The entries were deliberately selected, '
+               'so this is not a distribution of all UCL player-seasons.', 201))
     add(figure('fig4_ronaldo_peak_seasons.png',
-        '<b>Figure 4.</b> Ronaldo’s four highlighted seasons scored '
-        '8, 17, 16 and 12 goals, respectively.',
-        'The line connects only preselected 2007/08, 2013/14, '
-        '2015/16 and 2016/17 campaigns. Uneven gaps and excluded '
-        'seasons prevent a continuous career-trend interpretation; '
-        'unavailable assists are not assumed to be zero.', 186))
+               '<b>Figure 4.</b> Ronaldo’s four highlighted seasons scored '
+               '8, 17, 16 and 12 goals, respectively.',
+               'The line connects only preselected 2007/08, 2013/14, '
+               '2015/16 and 2016/17 campaigns. Uneven gaps and excluded '
+               'seasons prevent a continuous career-trend interpretation; '
+               'unavailable assists are not assumed to be zero.', 186))
     page()
 
     # Page 5 - 13-season match distributions.
     add(para('5.3 Thirteen-Season Match Results (RQ4)', 'h'))
     add(figure('fig5_match_goal_distribution.png',
-        '<b>Figure 5.</b> Across 1,619 fixtures, mean scoring was '
-        '2.97 goals per match and 916 games (56.6%) reached three goals.',
-        'This discrete goal-count plot gives the distribution underlying '
-        'the binary target; totals range from 0 to 12. The dashed '
-        'threshold marks three goals, and extra-time goals count but '
-        'shootout conversions do not.', 192))
+               '<b>Figure 5.</b> Across 1,619 fixtures, mean scoring was '
+               '2.97 goals per match and 916 games (56.6%) reached three goals.',
+               'This discrete goal-count plot gives the distribution underlying '
+               'the binary target; totals range from 0 to 12. The dashed '
+               'threshold marks three goals, and extra-time goals count but '
+               'shootout conversions do not.', 192))
     add(figure('fig6_stage_high_scoring.png',
-        '<b>Figure 6.</b> High-scoring proportions were 714/1,248 '
-        '(57.2%) for group fixtures and 202/371 (54.4%) for knockout games.',
-        'The bar plot compares proportions rather than raw counts '
-        'because the stages have unequal numbers of fixtures. '
-        'The 2.76-percentage-point knockout-minus-group difference '
-        'is small and descriptive; team strength and year may confound it.',
-        193))
+               '<b>Figure 6.</b> High-scoring proportions were 714/1,248 '
+               '(57.2%) for group fixtures and 202/371 (54.4%) for knockout games.',
+               'The bar plot compares proportions rather than raw counts '
+               'because the stages have unequal numbers of fixtures. '
+               'The 2.76-percentage-point knockout-minus-group difference '
+               'is small and descriptive; team strength and year may confound it.',
+               193))
     page()
 
     # Page 6 - Across-season variation.
     add(para('5.4 Seasonal Variation and Source Audit (RQ4)', 'h'))
     add(figure('fig7_season_goal_trend.png',
-        '<b>Figure 7.</b> Seasonal average goals varied from '
-        '2.76 (2011/12) to 3.24 (2019/20), without a monotonic pattern.',
-        'The line chart highlights between-season variation in scoring '
-        'opportunity and fixtures. The 2019/20 season had 119 games '
-        'rather than 125, reflecting its altered knockout schedule; '
-        'per-game averages remain interpretable.', 130))
+               '<b>Figure 7.</b> Seasonal average goals varied from '
+               '2.76 (2011/12) to 3.24 (2019/20), without a monotonic pattern.',
+               'The line chart highlights between-season variation in scoring '
+               'opportunity and fixtures. The 2019/20 season had 119 games '
+               'rather than 125, reflecting its altered knockout schedule; '
+               'per-game averages remain interpretable.', 130))
     add(figure('fig8_stage_rates_by_season.png',
-        '<b>Figure 8.</b> The high-scoring-rate gap between group and '
-        'knockout games changes direction across individual seasons.',
-        'The two lines show stage-specific yearly proportions instead '
-        'of obscuring heterogeneity in the pooled comparison. Their '
-        'variation motivates season-level uncertainty checks. '
-        'This is descriptive, not evidence that stage causes more goals.',
-        130))
+               '<b>Figure 8.</b> The high-scoring-rate gap between group and '
+               'knockout games changes direction across individual seasons.',
+               'The two lines show stage-specific yearly proportions instead '
+               'of obscuring heterogeneity in the pooled comparison. Their '
+               'variation motivates season-level uncertainty checks. '
+               'This is descriptive, not evidence that stage causes more goals.',
+               130))
     add(Spacer(1, 7))
     add(para('<b>Pre-match predictors:</b> The four team form variables '
              'represent goals scored (GF) or conceded (GA) per prior '
