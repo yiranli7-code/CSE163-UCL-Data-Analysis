@@ -65,7 +65,7 @@ def scores(fitted, data):
     probabilities = fitted.predict_proba(data[FEATURES])[:, 1]
     result = {'accuracy': float(accuracy_score(actual, predicted)),
               'precision': float(precision_score(actual, predicted,
-                                                 zero_division=0)),
+                                                  zero_division=0)),
               'recall': float(recall_score(actual, predicted,
                                           zero_division=0)),
               'f1': float(f1_score(actual, predicted, zero_division=0))}
