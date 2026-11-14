@@ -9,10 +9,9 @@ Section: AC (Rodrigo Li)
 """
 
 from __future__ import annotations
-from typing import Any
-
 import json
 from pathlib import Path
+from typing import Any
 
 import numpy as np
 import pandas as pd
@@ -36,7 +35,7 @@ NUMERIC = FEATURES[:-1]
 def get_partitions(frame: pd.DataFrame
                    ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """Split frame into chronological train, validation and test sets.
-    
+
         Return three season-disjoint DataFrames; reject missing partitions."""
     earlier = frame[frame['season'] <= '2019-20']
     validation = frame[(frame['season'] >= '2020-21') &
@@ -51,7 +50,7 @@ def get_partitions(frame: pd.DataFrame
 def make_estimator(name: str,
                    parameter: float | int | None) -> Pipeline:
     """Construct a pipeline for model name and its hyperparameter.
-    
+
         Use parameter as logistic C or forest max depth; return a
         preprocessing-plus-classifier Pipeline, or reject unknown names."""
     preprocess = ColumnTransformer([
@@ -75,7 +74,7 @@ def make_estimator(name: str,
 def scores(fitted: Pipeline,
            data: pd.DataFrame) -> dict[str, float | None]:
     """Evaluate fitted classification pipeline on labeled data.
-    
+
         Return accuracy, precision, recall, F1 and ROC-AUC; the AUC is None
         if the evaluation outcome contains only one class."""
     actual = data['high_scoring']
@@ -94,7 +93,7 @@ def scores(fitted: Pipeline,
 
 def run_model() -> dict[str, Any]:
     """Select a model on validation seasons and evaluate it on test.
-    
+
         Read match data, save outputs/model_metrics.json and return
         selection details, validation results and held-out metrics."""
     path = ROOT / 'data/matches_2011_2024.csv'
