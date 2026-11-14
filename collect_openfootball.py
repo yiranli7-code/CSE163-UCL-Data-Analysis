@@ -3,7 +3,13 @@
 Run with internet: python collect_openfootball.py --fetch
 Or use a local clone: python collect_openfootball.py --local-root /path/to/repo
 A season is rejected if its parsed count differs from its source header.
+
+Authors: Rodrigo Li and Larry Zhang
+Course: CSE 163, Autumn 2026
+Section: AC (Rodrigo Li)
 """
+
+from __future__ import annotations
 
 import argparse
 from datetime import datetime
@@ -30,8 +36,11 @@ SCORE_PATTERN = re.compile(r'(\d+)-(\d+)')
 AET_PATTERN = re.compile(r'(\d+)-(\d+)\s+a\.e\.t\.')
 
 
-def parse_score(initial_score, suffix):
-    """Exclude shootouts; use extra-time score when present."""
+def parse_score(initial_score: str, suffix: str) -> tuple[int, int]:
+    """Return home and away goals from a source scoreline.
+    
+        Read an extra-time score from suffix when supplied and exclude
+        penalty-shootout conversions. Raise ValueError on unusable scores."""
     overtime = AET_PATTERN.search(initial_score + suffix)
     if overtime:
         return int(overtime.group(1)), int(overtime.group(2))
@@ -43,8 +52,11 @@ def parse_score(initial_score, suffix):
     return int(match.group(1)), int(match.group(2))
 
 
-def parse_cl(text, season):
-    """Parse a season's main-draw fixtures with hard source-count checks."""
+def parse_cl(text: str, season: str) -> pd.DataFrame:
+    """Parse main-draw games from the given season's source text.
+    
+        Return a match DataFrame; reject incomplete counts and invalid
+        group-stage totals, including localized source headings."""
     stage = None
     date = None
     expected = None
@@ -98,8 +110,10 @@ def parse_cl(text, season):
     return pd.DataFrame(result)
 
 
-def get_season(season, local_root=None):
-    """Load a source season from a clone or the official public raw URL."""
+def get_season(season: str, local_root: Path | None = None) -> str:
+    """Read the text of season from local_root or the source URL.
+    
+        Return the UTF-8 season file; fetch online only without local_root."""
     if local_root is not None:
         path = local_root / season / 'cl.txt'
         return path.read_text(encoding='utf-8')
@@ -109,8 +123,10 @@ def get_season(season, local_root=None):
         return response.read().decode('utf-8')
 
 
-def collect(local_root=None):
-    """Collect 13 verified source seasons, aborting on parser mismatch."""
+def collect(local_root: Path | None = None) -> pd.DataFrame:
+    """Collect the 13 main-competition seasons from local_root or web.
+    
+        Validate and save the combined match CSV; return its DataFrame."""
     combined = []
     for year in range(2011, 2024):
         season = f'{year}-{str(year + 1)[-2:]}'
@@ -124,8 +140,8 @@ def collect(local_root=None):
     return all_matches
 
 
-def main():
-    """Run only after an explicit source selection."""
+def main() -> None:
+    """Parse command-line source options and collect the match records."""
     parser = argparse.ArgumentParser(description=__doc__)
     options = parser.add_mutually_exclusive_group(required=True)
     options.add_argument('--fetch', action='store_true')
