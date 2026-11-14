@@ -38,7 +38,7 @@ AET_PATTERN = re.compile(r'(\d+)-(\d+)\s+a\.e\.t\.')
 
 def parse_score(initial_score: str, suffix: str) -> tuple[int, int]:
     """Return home and away goals from a source scoreline.
-    
+
         Read an extra-time score from suffix when supplied and exclude
         penalty-shootout conversions. Raise ValueError on unusable scores."""
     overtime = AET_PATTERN.search(initial_score + suffix)
@@ -54,7 +54,7 @@ def parse_score(initial_score: str, suffix: str) -> tuple[int, int]:
 
 def parse_cl(text: str, season: str) -> pd.DataFrame:
     """Parse main-draw games from the given season's source text.
-    
+
         Return a match DataFrame; reject incomplete counts and invalid
         group-stage totals, including localized source headings."""
     stage = None
@@ -112,7 +112,7 @@ def parse_cl(text: str, season: str) -> pd.DataFrame:
 
 def get_season(season: str, local_root: Path | None = None) -> str:
     """Read the text of season from local_root or the source URL.
-    
+
         Return the UTF-8 season file; fetch online only without local_root."""
     if local_root is not None:
         path = local_root / season / 'cl.txt'
@@ -125,7 +125,7 @@ def get_season(season: str, local_root: Path | None = None) -> str:
 
 def collect(local_root: Path | None = None) -> pd.DataFrame:
     """Collect the 13 main-competition seasons from local_root or web.
-    
+
         Validate and save the combined match CSV; return its DataFrame."""
     combined = []
     for year in range(2011, 2024):
