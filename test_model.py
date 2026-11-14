@@ -1,4 +1,11 @@
-"""Small, deterministic smoke tests for the optional modeling challenge."""
+"""Small, deterministic smoke tests for the optional modeling challenge.
+
+Authors: Rodrigo Li and Larry Zhang
+Course: CSE 163, Autumn 2026
+Section: AC (Rodrigo Li)
+"""
+
+from __future__ import annotations
 
 import unittest
 
@@ -10,7 +17,7 @@ from model import FEATURES, get_partitions, make_estimator, scores
 class ModelSmokeTests(unittest.TestCase):
     """Check model training without making claims about real test metrics."""
 
-    def test_temporal_partitions(self):
+    def test_temporal_partitions(self: ModelSmokeTests) -> None:
         """Verify that later seasons are excluded from earlier splits."""
         frame = pd.DataFrame({'season': ['2011-12', '2019-20',
                                          '2020-21', '2021-22',
@@ -21,7 +28,7 @@ class ModelSmokeTests(unittest.TestCase):
                          ['2020-21', '2021-22'])
         self.assertEqual(test['season'].tolist(), ['2022-23', '2023-24'])
 
-    def test_model_fits_small_data(self):
+    def test_model_fits_small_data(self: ModelSmokeTests) -> None:
         """Both estimators accept the exact proposed pre-match fields."""
         example = pd.DataFrame({
             'home_gf_prior': [0, 1, 2, 3, 1, 0, 3, 2],
@@ -40,7 +47,7 @@ class ModelSmokeTests(unittest.TestCase):
                 self.assertTrue(0 <= result['f1'] <= 1)
                 self.assertTrue(0 <= result['roc_auc'] <= 1)
 
-    def test_unknown_model_rejected(self):
+    def test_unknown_model_rejected(self: ModelSmokeTests) -> None:
         """A misspelled model name cannot silently select a model."""
         with self.assertRaisesRegex(ValueError, 'Unknown'):
             make_estimator('wrong-model', 1)
