@@ -9,10 +9,9 @@ Section: AC (Rodrigo Li)
 """
 
 from __future__ import annotations
-from typing import Any
-
-from pathlib import Path
 import json
+from pathlib import Path
+from typing import Any
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -29,7 +28,7 @@ COLORS = ['#153b64', '#128a8a', '#e2a23a', '#9966a7', '#cc6554']
 
 def seven_number(series: pd.Series) -> dict[str, float | None]:
     """Compute mean, SD, minimum, quartiles, and maximum for series.
-    
+
         Ignore missing observations and raise ValueError for an empty sample.
         Return seven named numeric results; SD is None for a single value."""
     numeric = pd.to_numeric(series, errors='coerce').dropna()
@@ -48,7 +47,7 @@ def seven_number(series: pd.Series) -> dict[str, float | None]:
 
 def validate_matches(matches: pd.DataFrame) -> pd.DataFrame:
     """Validate required columns, goals, stages, dates and fixture IDs.
-    
+
         Return a copy of matches; raise ValueError for malformed records."""
     required = ['season', 'date', 'stage', 'home_team', 'away_team',
                 'home_goals', 'away_goals']
@@ -74,7 +73,7 @@ def validate_matches(matches: pd.DataFrame) -> pd.DataFrame:
 
 def prepare_matches(matches: pd.DataFrame) -> pd.DataFrame:
     """Return validated matches with ordered dates and goal labels.
-    
+
         Add total_goals and a binary high_scoring (three-plus goals) column."""
     result = validate_matches(matches)
     result['date'] = pd.to_datetime(result['date'])
@@ -87,7 +86,7 @@ def prepare_matches(matches: pd.DataFrame) -> pd.DataFrame:
 
 def add_prematch_form(matches: pd.DataFrame) -> pd.DataFrame:
     """Return matches with prior scoring and conceding averages.
-    
+
         For each team within each season, use only matches before its date.
         Same-day fixtures cannot enter each other's predictor values.
         Unknown opening-match averages remain missing."""
@@ -120,7 +119,7 @@ def add_prematch_form(matches: pd.DataFrame) -> pd.DataFrame:
 
 def stage_test(matches: pd.DataFrame) -> dict[str, Any]:
     """Compare match stage with the high_scoring outcome in matches.
-    
+
         Return observed/expected counts, chi-square results and diagnostics.
         Flag invalid inference if a margin is empty or counts are too small."""
     contingency = pd.crosstab(matches['stage'], matches['high_scoring'])
@@ -146,7 +145,7 @@ def bootstrap_stage_difference(matches: pd.DataFrame,
                                iterations: int = 3000,
                                seed: int = 163) -> dict[str, float]:
     """Bootstrap the knockout-minus-group high-scoring difference.
-    
+
         Use iterations resamples and the given random seed; return the
         observed rate difference and an exploratory 95% iid interval.
         Raise ValueError if either stage has no matches."""
@@ -171,7 +170,7 @@ def bootstrap_seasons(matches: pd.DataFrame,
                       iterations: int = 3000,
                       seed: int = 163) -> dict[str, float | int]:
     """Bootstrap full seasons for a stage-rate difference interval.
-    
+
         Use iterations resamples and seed; return the observed gap, 95%
         interval and cluster count. Require both stages in multiple seasons.
         This does not fully remove repeated-team dependence within seasons."""
@@ -202,7 +201,7 @@ def describe_dataframe(frame: pd.DataFrame,
                        quantitative: list[str],
                        categorical: list[str]) -> dict[str, Any]:
     """Describe columns and missingness in frame.
-    
+
         Summarize quantitative columns by seven-number statistics and
         categorical columns by complete value counts; return a mapping."""
     return {
@@ -232,7 +231,7 @@ def save_figure(path: Path) -> None:
 
 def player_graphs(players: pd.DataFrame) -> None:
     """Save career totals and per-appearance charts from players.
-    
+
         Players without appearance counts are excluded from the rate chart."""
     ordered = players.sort_values('goals', ascending=False)
     labels = ordered['player'].str.replace('Cristiano ', 'C. ', regex=False)
@@ -273,7 +272,7 @@ def player_graphs(players: pd.DataFrame) -> None:
 
 def season_graphs(seasons: pd.DataFrame) -> None:
     """Save selected-season comparisons from the seasons table.
-    
+
         The selected observations do not form a full career time series."""
     ordered = seasons.sort_values('goals', ascending=True)
     names = ordered['player'].str.split().str[-1] + '  ' + ordered['season']
@@ -298,7 +297,7 @@ def season_graphs(seasons: pd.DataFrame) -> None:
 
 def match_graphs(matches: pd.DataFrame) -> None:
     """Save four match-level and seasonal scoring figures.
-    
+
         Use matches with total_goals and high_scoring already computed."""
     values = matches['total_goals'].value_counts().sort_index()
     fig, ax = plt.subplots(figsize=(8, 4.1))
@@ -357,7 +356,7 @@ def match_graphs(matches: pd.DataFrame) -> None:
 
 def make_analysis(data_dir: Path = DATA) -> dict[str, Any]:
     """Generate EDA outputs from the CSV files under data_dir.
-    
+
         Save figures, cleaned tables and JSON metrics; return the metrics."""
     plt.switch_backend('Agg')
     OUTPUT.mkdir(parents=True, exist_ok=True)
