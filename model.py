@@ -2,7 +2,14 @@
 
 Run after collecting all 13 seasons: python model.py
 No test-set evaluation occurs until train/validation choices are fixed.
+
+Authors: Rodrigo Li and Larry Zhang
+Course: CSE 163, Autumn 2026
+Section: AC (Rodrigo Li)
 """
+
+from __future__ import annotations
+from typing import Any
 
 import json
 from pathlib import Path
@@ -26,8 +33,11 @@ FEATURES = ['home_gf_prior', 'home_ga_prior', 'away_gf_prior',
 NUMERIC = FEATURES[:-1]
 
 
-def get_partitions(frame):
-    """Use whole seasons for training, model selection, and testing."""
+def get_partitions(frame: pd.DataFrame
+                   ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """Split frame into chronological train, validation and test sets.
+    
+        Return three season-disjoint DataFrames; reject missing partitions."""
     earlier = frame[frame['season'] <= '2019-20']
     validation = frame[(frame['season'] >= '2020-21') &
                        (frame['season'] <= '2021-22')]
@@ -38,8 +48,12 @@ def get_partitions(frame):
     return earlier, validation, test
 
 
-def make_estimator(name, parameter):
-    """Fit preprocessors inside each estimator, avoiding split leakage."""
+def make_estimator(name: str,
+                   parameter: float | int | None) -> Pipeline:
+    """Construct a pipeline for model name and its hyperparameter.
+    
+        Use parameter as logistic C or forest max depth; return a
+        preprocessing-plus-classifier Pipeline, or reject unknown names."""
     preprocess = ColumnTransformer([
         ('num', StandardScaler(), NUMERIC),
         ('stage', OneHotEncoder(handle_unknown='ignore'), ['stage'])
@@ -58,8 +72,12 @@ def make_estimator(name, parameter):
     return Pipeline([('preprocess', preprocess), ('model', classifier)])
 
 
-def scores(fitted, data):
-    """Return common binary metrics and a class-probability ROC-AUC."""
+def scores(fitted: Pipeline,
+           data: pd.DataFrame) -> dict[str, float | None]:
+    """Evaluate fitted classification pipeline on labeled data.
+    
+        Return accuracy, precision, recall, F1 and ROC-AUC; the AUC is None
+        if the evaluation outcome contains only one class."""
     actual = data['high_scoring']
     predicted = fitted.predict(data[FEATURES])
     probabilities = fitted.predict_proba(data[FEATURES])[:, 1]
@@ -74,8 +92,11 @@ def scores(fitted, data):
     return result
 
 
-def run_model():
-    """Select hyperparameters on validation seasons; evaluate test once."""
+def run_model() -> dict[str, Any]:
+    """Select a model on validation seasons and evaluate it on test.
+    
+        Read match data, save outputs/model_metrics.json and return
+        selection details, validation results and held-out metrics."""
     path = ROOT / 'data/matches_2011_2024.csv'
     if not path.exists():
         raise FileNotFoundError('Run collect_openfootball.py before model.py')
@@ -120,8 +141,8 @@ def run_model():
     return result
 
 
-def main():
-    """Run the multi-season modeling challenge only with real data."""
+def main() -> None:
+    """Run the multi-season machine-learning evaluation."""
     run_model()
 
 
