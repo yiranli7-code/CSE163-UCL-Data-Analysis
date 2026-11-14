@@ -2,7 +2,15 @@
 
 Run: python make_report.py
 The report is generated from outputs/eda_metrics.json and model_metrics.json.
+
+Authors: Rodrigo Li and Larry Zhang
+Course: CSE 163, Autumn 2026
+Section: AC (Rodrigo Li)
 """
+
+from __future__ import annotations
+from reportlab.pdfgen.canvas import Canvas
+from typing import Any
 
 import json
 from pathlib import Path
@@ -57,13 +65,14 @@ STYLES = {
 }
 
 
-def para(string, style='body'):
-    """Create a paragraph in the named report style."""
+def para(string: str, style: str = 'body') -> Paragraph:
+    """Return a paragraph from string in the named report style."""
     return Paragraph(string, STYLES[style])
 
 
-def table(rows, widths, first_header=True):
-    """Render an alternating-row data table with a header."""
+def table(rows: list[list[object]], widths: list[int],
+          first_header: bool = True) -> Table:
+    """Return a styled report table using rows, widths and header flag."""
     cell_rows = []
     for index, values in enumerate(rows):
         style = 'head' if index == 0 and first_header else 'cell'
@@ -83,8 +92,11 @@ def table(rows, widths, first_header=True):
     return result
 
 
-def seven_table(info, cols):
-    """Build seven-number table with sample size n for each row."""
+def seven_table(info: dict[str, Any],
+                cols: list[tuple[str, str, int]]) -> Table:
+    """Return a statistics table for info and labeled cols.
+    
+        Each cols tuple gives a displayed label, metric key and sample size."""
     out = [['Variable', 'n', 'Mean', 'SD', 'Min', 'Q1', 'Med', 'Q3', 'Max']]
     for label, key, n in cols:
         values = info[key]
@@ -96,8 +108,11 @@ def seven_table(info, cols):
     return table(out, [91, 44, 51, 51, 49, 49, 48, 48, 49])
 
 
-def figure(filename, caption, interpretation, height=171):
-    """Provide a plot, caption, and plot-specific discussion."""
+def figure(filename: str, caption: str, interpretation: str,
+           height: int = 171) -> KeepTogether:
+    """Return a plot with its caption and interpretation grouped.
+    
+        Use filename under figures/ and cap the plot height in points."""
     from PIL import Image as PILImage
     path = ROOT / 'figures' / filename
     with PILImage.open(path) as original:
@@ -110,8 +125,8 @@ def figure(filename, caption, interpretation, height=171):
                          para(interpretation, 'body'), Spacer(1, 7)])
 
 
-def footer(canvas, document):
-    """Draw page numbers on every page, including page one."""
+def footer(canvas: Canvas, document: BaseDocTemplate) -> None:
+    """Draw the numbered footer on canvas for the given document page."""
     canvas.saveState()
     canvas.setStrokeColor(colors.HexColor('#e3eaf0'))
     canvas.line(54, 43, 558, 43)
@@ -122,8 +137,10 @@ def footer(canvas, document):
     canvas.restoreState()
 
 
-def make_report():
-    """Typeset report grounded only in the CSV-generated output files."""
+def make_report() -> None:
+    """Build a report from stored metrics and plotted figures.
+    
+        Overwrites eda.pdf; do not run after manually editing that PDF."""
     summary = json.loads((ROOT / 'outputs/eda_metrics.json').read_text())
     model = json.loads((ROOT / 'outputs/model_metrics.json').read_text())
     doc = BaseDocTemplate(str(ROOT / 'eda.pdf'), pagesize=letter,
@@ -139,10 +156,12 @@ def make_report():
     work = []
     add = work.append
 
-    def section(num, text):
+    def section(num: int, text: str) -> None:
+        """Append a numbered section heading with num and text."""
         add(para(f'{num}. {text}', 'h'))
 
-    def page():
+    def page() -> None:
+        """Append a page break to the report's flowables."""
         add(PageBreak())
 
     # Page 1 - Research framing, scope, and method.
@@ -464,8 +483,8 @@ def make_report():
     print('Generated:', ROOT / 'eda.pdf')
 
 
-def main():
-    """Build the report from measured analysis and model outputs."""
+def main() -> None:
+    """Generate the PDF report from saved outputs."""
     make_report()
 
 
