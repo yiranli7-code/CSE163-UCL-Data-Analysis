@@ -2,7 +2,14 @@
 
 Run: python eda.py
 Dependencies: pandas, numpy, matplotlib, scipy.
+
+Authors: Rodrigo Li and Larry Zhang
+Course: CSE 163, Autumn 2026
+Section: AC (Rodrigo Li)
 """
+
+from __future__ import annotations
+from typing import Any
 
 from pathlib import Path
 import json
@@ -20,8 +27,11 @@ FIGURES = ROOT / 'figures'
 COLORS = ['#153b64', '#128a8a', '#e2a23a', '#9966a7', '#cc6554']
 
 
-def seven_number(series):
-    """Return the seven requested statistics, ignoring missing entries."""
+def seven_number(series: pd.Series) -> dict[str, float | None]:
+    """Compute mean, SD, minimum, quartiles, and maximum for series.
+    
+        Ignore missing observations and raise ValueError for an empty sample.
+        Return seven named numeric results; SD is None for a single value."""
     numeric = pd.to_numeric(series, errors='coerce').dropna()
     if numeric.empty:
         raise ValueError('Quantitative variable has no observed values')
@@ -36,8 +46,10 @@ def seven_number(series):
     }
 
 
-def validate_matches(matches):
-    """Reject malformed matches, duplicate fixtures, and negative goals."""
+def validate_matches(matches: pd.DataFrame) -> pd.DataFrame:
+    """Validate required columns, goals, stages, dates and fixture IDs.
+    
+        Return a copy of matches; raise ValueError for malformed records."""
     required = ['season', 'date', 'stage', 'home_team', 'away_team',
                 'home_goals', 'away_goals']
     missing = set(required) - set(matches.columns)
@@ -60,8 +72,10 @@ def validate_matches(matches):
     return matches.copy()
 
 
-def prepare_matches(matches):
-    """Add match goals and threshold labels without dropping records."""
+def prepare_matches(matches: pd.DataFrame) -> pd.DataFrame:
+    """Return validated matches with ordered dates and goal labels.
+    
+        Add total_goals and a binary high_scoring (three-plus goals) column."""
     result = validate_matches(matches)
     result['date'] = pd.to_datetime(result['date'])
     result = result.sort_values(['season', 'date', 'home_team',
@@ -71,12 +85,12 @@ def prepare_matches(matches):
     return result
 
 
-def add_prematch_form(matches):
-    """Attach form computed exclusively from earlier fixture dates.
-
-    Same-date fixtures are processed together so no result from that date
-    can enter a feature for a different match played on that date.
-    """
+def add_prematch_form(matches: pd.DataFrame) -> pd.DataFrame:
+    """Return matches with prior scoring and conceding averages.
+    
+        For each team within each season, use only matches before its date.
+        Same-day fixtures cannot enter each other's predictor values.
+        Unknown opening-match averages remain missing."""
     ordered = prepare_matches(matches)
     state = {}
     records = []
@@ -104,8 +118,11 @@ def add_prematch_form(matches):
     return pd.DataFrame(records)
 
 
-def stage_test(matches):
-    """Test independence of stage and high-scoring label if counts permit."""
+def stage_test(matches: pd.DataFrame) -> dict[str, Any]:
+    """Compare match stage with the high_scoring outcome in matches.
+    
+        Return observed/expected counts, chi-square results and diagnostics.
+        Flag invalid inference if a margin is empty or counts are too small."""
     contingency = pd.crosstab(matches['stage'], matches['high_scoring'])
     contingency = contingency.reindex(index=['Group', 'Knockout'],
                                       columns=[0, 1], fill_value=0)
@@ -125,8 +142,14 @@ def stage_test(matches):
                         'Expected counts below five; no chi-square inference')}
 
 
-def bootstrap_stage_difference(matches, iterations=3000, seed=163):
-    """Give an exploratory iid bootstrap CI for knockout minus group rate."""
+def bootstrap_stage_difference(matches: pd.DataFrame,
+                               iterations: int = 3000,
+                               seed: int = 163) -> dict[str, float]:
+    """Bootstrap the knockout-minus-group high-scoring difference.
+    
+        Use iterations resamples and the given random seed; return the
+        observed rate difference and an exploratory 95% iid interval.
+        Raise ValueError if either stage has no matches."""
     rng = np.random.default_rng(seed)
     group = matches.loc[matches['stage'] == 'Group',
                         'high_scoring'].to_numpy()
@@ -144,12 +167,14 @@ def bootstrap_stage_difference(matches, iterations=3000, seed=163):
             'ci_high': float(np.quantile(estimates, 0.975))}
 
 
-def bootstrap_seasons(matches, iterations=3000, seed=163):
-    """Bootstrap season clusters, retaining group/knockout structure.
-
-    This handles between-season variability but is not a full correction
-    for opponent and team dependence within seasons.
-    """
+def bootstrap_seasons(matches: pd.DataFrame,
+                      iterations: int = 3000,
+                      seed: int = 163) -> dict[str, float | int]:
+    """Bootstrap full seasons for a stage-rate difference interval.
+    
+        Use iterations resamples and seed; return the observed gap, 95%
+        interval and cluster count. Require both stages in multiple seasons.
+        This does not fully remove repeated-team dependence within seasons."""
     if matches['season'].nunique() < 2:
         raise ValueError('Need multiple seasons for cluster bootstrap')
     summary = matches.groupby(['season', 'stage'])['high_scoring'].agg(
@@ -173,8 +198,13 @@ def bootstrap_seasons(matches, iterations=3000, seed=163):
             'clusters': n}
 
 
-def describe_dataframe(frame, quantitative, categorical):
-    """Describe shape, missingness, and variables."""
+def describe_dataframe(frame: pd.DataFrame,
+                       quantitative: list[str],
+                       categorical: list[str]) -> dict[str, Any]:
+    """Describe columns and missingness in frame.
+    
+        Summarize quantitative columns by seven-number statistics and
+        categorical columns by complete value counts; return a mapping."""
     return {
         'rows': int(len(frame)), 'columns': int(len(frame.columns)),
         'missing_by_column': {
@@ -193,15 +223,17 @@ def describe_dataframe(frame, quantitative, categorical):
     }
 
 
-def save_figure(path):
-    """Save a plot with sufficient detail for a typeset PDF."""
+def save_figure(path: Path) -> None:
+    """Save the current matplotlib plot to path, then close it."""
     plt.tight_layout()
     plt.savefig(path, dpi=175, bbox_inches='tight', facecolor='white')
     plt.close()
 
 
-def player_graphs(players):
-    """Produce career G+A and exposure-adjusted player comparison plots."""
+def player_graphs(players: pd.DataFrame) -> None:
+    """Save career totals and per-appearance charts from players.
+    
+        Players without appearance counts are excluded from the rate chart."""
     ordered = players.sort_values('goals', ascending=False)
     labels = ordered['player'].str.replace('Cristiano ', 'C. ', regex=False)
     labels = labels.str.replace('Robert ', 'R. ', regex=False)
@@ -239,8 +271,10 @@ def player_graphs(players):
     save_figure(FIGURES / 'fig2_rates_verified.png')
 
 
-def season_graphs(seasons):
-    """Graph verified selected player-seasons without claiming completeness."""
+def season_graphs(seasons: pd.DataFrame) -> None:
+    """Save selected-season comparisons from the seasons table.
+    
+        The selected observations do not form a full career time series."""
     ordered = seasons.sort_values('goals', ascending=True)
     names = ordered['player'].str.split().str[-1] + '  ' + ordered['season']
     fig, ax = plt.subplots(figsize=(8, 5.0))
@@ -262,8 +296,10 @@ def season_graphs(seasons):
     save_figure(FIGURES / 'fig4_ronaldo_peak_seasons.png')
 
 
-def match_graphs(matches):
-    """Graph score distribution and stage-conditioned scoring rates."""
+def match_graphs(matches: pd.DataFrame) -> None:
+    """Save four match-level and seasonal scoring figures.
+    
+        Use matches with total_goals and high_scoring already computed."""
     values = matches['total_goals'].value_counts().sort_index()
     fig, ax = plt.subplots(figsize=(8, 4.1))
     ax.bar(values.index, values.values, color=COLORS[0])
@@ -319,8 +355,10 @@ def match_graphs(matches):
     save_figure(FIGURES / 'fig8_stage_rates_by_season.png')
 
 
-def make_analysis(data_dir=DATA):
-    """Load source snapshot files, compute all EDA results, write outputs."""
+def make_analysis(data_dir: Path = DATA) -> dict[str, Any]:
+    """Generate EDA outputs from the CSV files under data_dir.
+    
+        Save figures, cleaned tables and JSON metrics; return the metrics."""
     plt.switch_backend('Agg')
     OUTPUT.mkdir(parents=True, exist_ok=True)
     FIGURES.mkdir(parents=True, exist_ok=True)
@@ -405,8 +443,8 @@ def make_analysis(data_dir=DATA):
     return metrics
 
 
-def main():
-    """Run all EDA from checked-in data snapshots."""
+def main() -> None:
+    """Execute the complete EDA using checked-in source data."""
     make_analysis()
 
 
