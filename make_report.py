@@ -9,11 +9,9 @@ Section: AC (Rodrigo Li)
 """
 
 from __future__ import annotations
-from reportlab.pdfgen.canvas import Canvas
-from typing import Any
-
 import json
 from pathlib import Path
+from typing import Any
 
 import matplotlib
 from reportlab.lib import colors
@@ -21,6 +19,7 @@ from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfgen.canvas import Canvas
 from reportlab.platypus import (BaseDocTemplate, Frame, Image, KeepTogether,
                                 PageBreak, PageTemplate, Paragraph, Spacer,
                                 Table, TableStyle)
@@ -95,7 +94,7 @@ def table(rows: list[list[object]], widths: list[int],
 def seven_table(info: dict[str, Any],
                 cols: list[tuple[str, str, int]]) -> Table:
     """Return a statistics table for info and labeled cols.
-    
+
         Each cols tuple gives a displayed label, metric key and sample size."""
     out = [['Variable', 'n', 'Mean', 'SD', 'Min', 'Q1', 'Med', 'Q3', 'Max']]
     for label, key, n in cols:
@@ -111,7 +110,7 @@ def seven_table(info: dict[str, Any],
 def figure(filename: str, caption: str, interpretation: str,
            height: int = 171) -> KeepTogether:
     """Return a plot with its caption and interpretation grouped.
-    
+
         Use filename under figures/ and cap the plot height in points."""
     from PIL import Image as PILImage
     path = ROOT / 'figures' / filename
@@ -139,7 +138,7 @@ def footer(canvas: Canvas, document: BaseDocTemplate) -> None:
 
 def make_report() -> None:
     """Build a report from stored metrics and plotted figures.
-    
+
         Overwrites eda.pdf; do not run after manually editing that PDF."""
     summary = json.loads((ROOT / 'outputs/eda_metrics.json').read_text())
     model = json.loads((ROOT / 'outputs/model_metrics.json').read_text())
