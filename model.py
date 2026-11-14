@@ -32,8 +32,7 @@ FEATURES = ['home_gf_prior', 'home_ga_prior', 'away_gf_prior',
 NUMERIC = FEATURES[:-1]
 
 
-def get_partitions(frame: pd.DataFrame
-                   ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+def get_partitions(frame: pd.DataFrame) -> tuple[pd.DataFrame, ...]:
     """Split frame into chronological train, validation and test sets.
 
         Return three season-disjoint DataFrames; reject missing partitions."""
@@ -47,8 +46,7 @@ def get_partitions(frame: pd.DataFrame
     return earlier, validation, test
 
 
-def make_estimator(name: str,
-                   parameter: float | int | None) -> Pipeline:
+def make_estimator(name: str, parameter: float | int | None) -> Pipeline:
     """Construct a pipeline for model name and its hyperparameter.
 
         Use parameter as logistic C or forest max depth; return a
@@ -71,8 +69,7 @@ def make_estimator(name: str,
     return Pipeline([('preprocess', preprocess), ('model', classifier)])
 
 
-def scores(fitted: Pipeline,
-           data: pd.DataFrame) -> dict[str, float | None]:
+def scores(fitted: Pipeline, data: pd.DataFrame) -> dict[str, float | None]:
     """Evaluate fitted classification pipeline on labeled data.
 
         Return accuracy, precision, recall, F1 and ROC-AUC; the AUC is None
