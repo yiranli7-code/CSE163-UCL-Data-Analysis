@@ -65,7 +65,7 @@ When `data/matches_2011_2024.csv` exists, `final_analysis.py` independently reco
 - `test_model.py`: original chronological partition and model smoke tests.
 - `make_report.py`: regenerates the historical Part 2 EDA PDF; not needed to generate the final Part 3 figures or to export the reviewed Word report.
 
-The original `data/`, `source_openfootball/`, `outputs/`, and `figures/` directories should be retained. Run the full reproduction commands before submission. The standalone Part 3 package passed all 13 tests, figure generation, syntax compilation, and flake8 with the default 79-character limit on the author's Mac (November 23, 2026). The complete integrated repository run remains an author check. The supplemental scripts are formatted to a maximum of 79 characters per line; the full-repository example retains the earlier 100-character setting. Use the course's required lint configuration if it differs.
+The original `data/`, `source_openfootball/`, `outputs/`, and `figures/` directories should be retained. Run the full reproduction commands before submission. The standalone Part 3 package passed all 13 tests, figure generation, syntax compilation, and flake8 with the default 79-character limit on the author's Mac (November 23, 2026). The author also completed the full integrated run on November 23, 2026: all 37 tests passed, full-repository flake8 passed at 100 characters, all three new modules passed default flake8, and fixture-level reconciliation was true. The model selected in the author's full run was logistic regression (C=1.0), with test accuracy 0.5321, F1 0.6852 and ROC-AUC 0.4947; majority baseline F1 was 0.6985. Earlier snapshots selected random forest; selection may vary across library versions. The final figure uses the selected model's name rather than a fixed label. The reference model artifacts reflect the author's run (Python 3.14, scikit-learn 1.9.1). Re-run after changes and use the same environment when reproducing the final report. The supplemental scripts are formatted to a maximum of 79 characters per line; the full-repository example retains the earlier 100-character setting. Use the course's required lint configuration if it differs.
 
 ## Figures and reproducibility reference
 
@@ -74,7 +74,7 @@ The original `data/`, `source_openfootball/`, `outputs/`, and `figures/` directo
 3. `03_selected_peak_seasons.png` — selected documented player seasons, including two outside the match sample; not a full census.
 4. `04_season_goal_trend.png` — 13-season average goals/game with exploratory fitted line.
 5. `05_stage_goal_frequency.png` — observed percentage of games with 3+ goals by stage.
-6. `06_model_baseline.png` — test-sample accuracy/F1 for random forest vs majority baseline; AUC reported separately.
+6. `06_model_baseline.png` — test-sample accuracy/F1 for the validation-selected classifier vs majority baseline; AUC reported separately.
 
 **Quality controls:** Each figure's title, caption, source and interpretation appear in the report. No unknown appearance denominator is imputed. Season-level permutation testing is a sensitivity diagnostic, not proof of independent seasons or a causal trend. The existing project tests are not duplicated; they must still be run in the original repository.
 

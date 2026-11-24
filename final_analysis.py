@@ -161,7 +161,8 @@ def plot_model(model: dict[str, Any]) -> None:
     x = np.arange(len(names))
     fig, ax = plt.subplots(figsize=(9, 3.9))
     w = .28
-    ax.bar(x - w / 2, fitted, w, color=BLUE, label='Random forest')
+    ax.bar(x - w / 2, fitted, w, color=BLUE,
+           label=model.get('model_label', 'Selected model'))
     ax.bar(x + w / 2, baseline, w, color=GOLD,
            label='Majority-class baseline')
     ax.set_xticks(x, names)
@@ -206,6 +207,9 @@ def load_model_metrics() -> dict[str, Any]:
             data = json.loads(path.read_text(encoding='utf-8'))
             test = data['test_results']
             return {'model': str(data['selected']),
+                    'model_label': {'logistic': 'Logistic regression',
+                                    'forest': 'Random forest'}.get(
+                        data['selected']['name'], 'Selected model'),
                     'train': data['sample_sizes']['train'],
                     'validation': data['sample_sizes']['validation'],
                     'test': data['sample_sizes']['test'],
