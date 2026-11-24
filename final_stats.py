@@ -141,8 +141,8 @@ def validate_full_matches(matches: pd.DataFrame,
         raise ValueError('Negative scores are invalid')
     derived = matches.assign(
         goals=matches['home_goals'] + matches['away_goals'])
-    by_season = derived.groupby('season').agg(n=('goals', 'size'),
-                                                goals=('goals', 'sum'))
+    by_season = derived.groupby('season').agg(
+        n=('goals', 'size'), goals=('goals', 'sum'))
     expected = validate_seasons(seasons).set_index('season')
     if not by_season.equals(expected[['n', 'goals']]):
         raise ValueError('Fixture counts/goals disagree with season summary')
