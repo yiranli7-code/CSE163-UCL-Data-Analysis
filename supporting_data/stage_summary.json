@@ -1,0 +1,22 @@
+{
+  "provenance": "Existing team GitHub outputs/eda_metrics.json, read 2026-11-23",
+  "group": {
+    "n": 1248,
+    "three_plus": 714
+  },
+  "knockout": {
+    "n": 371,
+    "three_plus": 202
+  },
+  "season_cluster_bootstrap_95": [
+    -0.10842451370468613,
+    0.04959796628225389
+  ],
+  "iid_bootstrap_95": [
+    -0.08373840192826042,
+    0.029624488129794718
+  ],
+  "chi_square": 0.8893890266152602,
+  "chi_square_p": 0.3456429295917439,
+  "cramers_v": 0.02343810302979148
+}

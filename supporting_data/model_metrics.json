@@ -1,0 +1,16 @@
+{
+  "provenance": "Author's full repository terminal run, November 23, 2026; Python 3.14, scikit-learn 1.9.1",
+  "model": "LogisticRegression, C=1.0",
+  "model_label": "Logistic regression",
+  "selection": "validation F1, chronological season holdout",
+  "train": 975,
+  "validation": 218,
+  "test": 218,
+  "test_accuracy": 0.5321100917431193,
+  "test_precision": 0.5362318840579711,
+  "test_recall": 0.9487179487179487,
+  "test_f1": 0.6851851851851852,
+  "test_roc_auc": 0.49471100956249464,
+  "baseline_accuracy": 0.536697247706422,
+  "baseline_f1": 0.6985074626865672
+}
