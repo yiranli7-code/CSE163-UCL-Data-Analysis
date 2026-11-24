@@ -21,7 +21,7 @@ REQUIRED_SEASON_COLUMNS = ('season', 'n', 'goals', 'mean_goals',
 
 
 def validate_seasons(seasons: pd.DataFrame) -> pd.DataFrame:
-    """Validate match and rate identities, returning chronologically sorted data."""
+    """Validate counts and rates; return chronologically sorted data."""
     missing = set(REQUIRED_SEASON_COLUMNS).difference(seasons.columns)
     if missing:
         raise ValueError(f'Missing season columns: {sorted(missing)}')
